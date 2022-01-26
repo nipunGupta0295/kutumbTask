@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
 })
 
 function Error(props) {
-    console.log("img", img);
     return (
         <View>
             <View style={styles.imgContainer}>

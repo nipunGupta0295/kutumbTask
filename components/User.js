@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
     },
     fork: {
         width: 19,
-        height: 19
+        height: 19,
+        marginRight: 2
     },
     starcon: {
         flexDirection: "row",
@@ -52,9 +53,11 @@ const styles = StyleSheet.create({
     },
     star: {
         width: 19,
-        height: 19
+        height: 19,
+        marginRight: 3,
     },
     langcon: {
+        justifyContent: "space-between",
         flexDirection: "row",
         alignItems: "center",
         marginRight: 9
@@ -62,9 +65,7 @@ const styles = StyleSheet.create({
 })
 function User({ item }) {
     const [open, setOpen] = useState(false);
-    //console.log("item", item.item);
     const handleOpen = () => {
-        console.log("hi");
         setOpen(!open);
     }
     return (
@@ -82,7 +83,7 @@ function User({ item }) {
                     {open ? <View style={styles.extradetails}>
                         <View style={styles.description}><Text style={styles.descriptionText}>{item.item.description}</Text></View>
                         <View style={styles.github}>
-                            <View style={styles.langcon}><View style={{ width: 14, height: 14, backgroundColor: item.item.languageColor, borderRadius: 7 }}></View><Text>{item.item.language}</Text></View>
+                            <View style={styles.langcon}><View style={{ width: 14, height: 14, backgroundColor: item.item.languageColor, borderRadius: 7, marginRight: 2 }}></View><Text>{item.item.language}</Text></View>
                             <View style={styles.forkcon}><Image style={styles.star} source={star} /><Text>{item.item.stars}</Text></View>
                             <View style={styles.starcon}><Image style={styles.fork} source={fork} /><Text>{item.item.forks}</Text></View>
                         </View>

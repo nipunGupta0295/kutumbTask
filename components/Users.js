@@ -44,12 +44,9 @@ function Users() {
     const [fetchError, setfetchError] = useState(false);
     const [loading, setLoading] = useState(false);
     const unique = [...new Set(userData.map(item => item.language))];
-    console.log("un", unique);
     const grouped = groupBy(userData, user => user.language)
-    console.log("Grouped Array Items : ", grouped)
 
     const handleRefresh = () => {
-        console.log("ref");
         handleApi();
     }
 
@@ -90,8 +87,6 @@ function Users() {
                         <>
                             {unique.map((item) => {
                                 const group = grouped.get(item);
-                                console.log("group", group);
-                                console.log("color", group[0].languageColor)
                                 return (
                                     <>
                                         <View style={{ backgroundColor: group[0].languageColor, height: 40, justifyContent: "center", paddingLeft: 10 }}>
@@ -109,7 +104,6 @@ function Users() {
                                 )
                             })}
                         </>
-                        // <UserShimmerCard />}
                     }
 
                 </>}
