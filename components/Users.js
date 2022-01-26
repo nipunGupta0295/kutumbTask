@@ -26,11 +26,23 @@ const styles = StyleSheet.create({
     }
 })
 
+const Shimmer = () => {
+    const arr = [1, 2, 3, 4, 5, 6, 7];
+    return (
+        <>
+            {arr.map((item) => {
+                return <UserShimmerCard />
+            })}
+        </>
+    )
+}
+
 function Users() {
 
     const [userData, setUserData] = useState(data);
     const [refreshing, setRefreshing] = useState(false);
     const [fetchError, setfetchError] = useState(false);
+    const [loading, setLoading] = useState(false);
     const unique = [...new Set(userData.map(item => item.language))];
     console.log("un", unique);
     const grouped = groupBy(userData, user => user.language)
@@ -41,6 +53,7 @@ function Users() {
     }
 
     const handleApi = () => {
+        setLoading(true);
         console.log("api");
         axios({
             method: "GET",
@@ -50,9 +63,16 @@ function Users() {
                 console.log(response);
                 setUserData(response.data);
                 setfetchError(false);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 2000)
+                
             })
             .catch((err) => {
                 console.log(err);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 2000)
                 //setfetchError(true);
             })
     }
@@ -63,29 +83,35 @@ function Users() {
 
     return (
         <>
-            {fetchError ? <Error apifunc={handleApi} /> :
+            {loading ? <Shimmer /> :
                 <>
-                    {unique.map((item) => {
-                        const group = grouped.get(item);
-                        console.log("group", group);
-                        console.log("color", group[0].languageColor)
-                        return (
-                            <>
-                                <View style={{ backgroundColor: group[0].languageColor, height: 40, justifyContent: "center", paddingLeft: 10 }}>
-                                    <Text>{item}</Text>
-                                </View>
-                                <FlatList
-                                    data={group}
-                                    renderItem={(item) => <User item={item} />}
-                                    keyExtractor={item => item.author}
-                                    refreshControl={<RefreshControl refreshing={refreshing} />}
-                                />
-                            </>
-                        )
-                    })}
-                </>
-                // <UserShimmerCard />}
-            }
+                    {fetchError ? <Error apifunc={handleApi} /> :
+                        <>
+                            {unique.map((item) => {
+                                const group = grouped.get(item);
+                                console.log("group", group);
+                                console.log("color", group[0].languageColor)
+                                return (
+                                    <>
+                                        <View style={{ backgroundColor: group[0].languageColor, height: 40, justifyContent: "center", paddingLeft: 10 }}>
+                                            <Text>{item}</Text>
+                                        </View>
+                                        <View>
+                                            <FlatList
+                                                data={group}
+                                                renderItem={(item) => <User item={item} />}
+                                                keyExtractor={item => item.author}
+                                                refreshControl={<RefreshControl refreshing={refreshing} />}
+                                            />
+                                        </View>
+                                    </>
+                                )
+                            })}
+                        </>
+                        // <UserShimmerCard />}
+                    }
+
+                </>}
 
         </>
 

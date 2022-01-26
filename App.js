@@ -23,9 +23,9 @@ import Users from './components/Users';
 
 const App = () => {
   return (
-    <View>
+    <ScrollView>
       <Users />
-    </View>
+    </ScrollView>
 
   )
 }
