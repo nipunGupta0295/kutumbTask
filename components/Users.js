@@ -41,7 +41,7 @@ function Users() {
 
     const [userData, setUserData] = useState(data);
     const [refreshing, setRefreshing] = useState(false);
-    const [fetchError, setfetchError] = useState(false);
+    const [fetchError, setfetchError] = useState(true);
     const [loading, setLoading] = useState(false);
     const unique = [...new Set(userData.map(item => item.language))];
     const grouped = groupBy(userData, user => user.language)

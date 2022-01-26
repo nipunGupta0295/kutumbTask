@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     img: {
-        width: 400,
+        width: 370,
         height: 400,
         resizeMode: "center"
     },
