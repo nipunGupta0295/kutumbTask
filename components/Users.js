@@ -50,6 +50,7 @@ function Users() {
 
     const handleRefresh = () => {
         console.log("ref");
+        handleApi();
     }
 
     const handleApi = () => {
@@ -66,7 +67,7 @@ function Users() {
                 setTimeout(() => {
                     setLoading(false);
                 }, 2000)
-                
+
             })
             .catch((err) => {
                 console.log(err);
@@ -101,7 +102,7 @@ function Users() {
                                                 data={group}
                                                 renderItem={(item) => <User item={item} />}
                                                 keyExtractor={item => item.author}
-                                                refreshControl={<RefreshControl refreshing={refreshing} />}
+                                                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
                                             />
                                         </View>
                                     </>
